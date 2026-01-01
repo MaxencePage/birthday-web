@@ -332,10 +332,10 @@ def inject_custom_css():
         to { opacity: 1; transform: translateY(0); }
     }
     
-    /* BACK TO TOP BUTTON - ALWAYS VISIBLE */
+/* BACK TO TOP BUTTON - ALWAYS VISIBLE */
     .floating-back-to-top {
         position: fixed !important;
-        bottom: 30px !important;
+        bottom: 100px !important;
         right: 30px !important;
         width: 56px !important;
         height: 56px !important;
@@ -355,6 +355,14 @@ def inject_custom_css():
         font-weight: bold !important;
     }
     
+    /* Move Streamlit banner to bottom left */
+    [data-testid="stStatusWidget"] {
+        position: fixed !important;
+        bottom: 20px !important;
+        left: 20px !important;
+        right: auto !important;
+    }
+        
     .floating-back-to-top:hover {
         transform: translateY(-3px) !important;
         box-shadow: 0 10px 30px rgba(156, 39, 176, 0.7) !important;
