@@ -332,10 +332,10 @@ def inject_custom_css():
         to { opacity: 1; transform: translateY(0); }
     }
     
-/* BACK TO TOP BUTTON - ALWAYS VISIBLE */
+    /* BACK TO TOP BUTTON - ALWAYS VISIBLE */
     .floating-back-to-top {
         position: fixed !important;
-        bottom: 100px !important;
+        bottom: 60px !important;
         right: 30px !important;
         width: 56px !important;
         height: 56px !important;
@@ -355,15 +355,7 @@ def inject_custom_css():
         font-weight: bold !important;
     }
     
-    /* Move Streamlit banner to bottom left */
-    [data-testid="stStatusWidget"] {
-        position: fixed !important;
-        bottom: 20px !important;
-        left: 20px !important;
-        right: auto !important;
-    }
-        
-    .floating-back-to-top:hover {
+      .floating-back-to-top:hover {
         transform: translateY(-3px) !important;
         box-shadow: 0 10px 30px rgba(156, 39, 176, 0.7) !important;
         background: linear-gradient(135deg, #AB47BC 0%, #8E24AA 100%) !important;
@@ -386,7 +378,7 @@ def inject_custom_css():
         .stButton > button { padding: 12px 30px; font-size: 1rem; }
         
         .floating-back-to-top {
-            bottom: 20px !important;
+            bottom: 60px !important;
             right: 20px !important;
             width: 50px !important;
             height: 50px !important;
