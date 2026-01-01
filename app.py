@@ -37,6 +37,23 @@ def inject_custom_css():
         z-index: 2;
         margin-top: 20px;
     }
+    
+    /* Date badge di akhir */
+    .date-badge-box {
+        background: #fffbe9;
+        color: #8E24AA;
+        border: 2.5px solid #BA68C8;
+        border-radius: 16px;
+        font-weight: 700;
+        font-size: 1.15rem;
+        box-shadow: 0 4px 16px #BA68C855;
+        padding: 10px 25px;
+        text-align: center;
+        letter-spacing: 0.5px;
+        display: inline-block;
+        margin: 0 auto;
+    }
+    
     /* Border untuk semua gambar galeri */
     .stImage img {
         border: 2.5px solid #E1BEE7;
@@ -680,7 +697,7 @@ def show_main_page():
         with cols[1]:
             st.image(images_lain[4], width=340)
         with cols[2]:
-            st.markdown('<div class="special-badge-box">✨ Special</div>', unsafe_allow_html=True)
+            st.markdown('<div class="special-badge-box">✨ Special ✨</div>', unsafe_allow_html=True)
             st.image(highlight_url, width=400)
         with cols[3]:
             st.image(images_lain[5], width=340)
@@ -745,6 +762,17 @@ def show_main_page():
         50% { transform: scale(1); }
     }
     </style>
+    """, unsafe_allow_html=True)
+    
+    # ========================================
+    # DATE BADGE - TAMBAHAN BARU
+    # ========================================
+    st.markdown("""
+    <div style="text-align: center; margin: 40px auto 80px auto;">
+        <div class="date-badge-box">
+            ✨ 05.07.25 ✨
+        </div>
+    </div>
     """, unsafe_allow_html=True)
 
 # ========================================
