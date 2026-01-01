@@ -110,11 +110,11 @@ def inject_custom_css():
     
     /* iOS Message Bubble */
     .message-bubble {
-        background: rgba(255, 255, 255, 0.45); /* Sedikit lebih solid biar tulisan jelas */
+        background: rgba(255, 255, 255, 0.45);
         backdrop-filter: blur(15px);
         border-radius: 25px;
         padding: 30px;
-        margin: 0 auto 25px auto; /* Margin bawah untuk jarak ke tombol */
+        margin: 0 auto 25px auto;
         max-width: 450px;
         border: 1.5px solid rgba(186, 104, 200, 0.3);
         box-shadow: 0 10px 40px rgba(138, 43, 226, 0.2);
@@ -145,12 +145,10 @@ def inject_custom_css():
         width: 100% !important;
     }
     
-    /* Override Streamlit default stretch behavior - target emotion cache */
     div[class*="st-emotion-cache"] .stButton {
         align-items: center !important;
     }
     
-    /* More aggressive override for the specific container */
     .stButton, [class*="st-emotion-cache"] {
         align-items: center !important;
     }
@@ -311,44 +309,6 @@ def inject_custom_css():
         margin-bottom: 20px;
     }
     
-    /* Featured Photo (First Image) */
-    .featured-photo {
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 0 40px rgba(156, 39, 176, 0.6),
-                    0 10px 60px rgba(138, 43, 226, 0.4);
-        margin-bottom: 15px;
-        transform: scale(1.05);
-        animation: glow-pulse 3s ease-in-out infinite;
-    }
-    
-    @keyframes glow-pulse {
-        0%, 100% {
-            box-shadow: 0 0 40px rgba(156, 39, 176, 0.6),
-                        0 10px 60px rgba(138, 43, 226, 0.4);
-        }
-        50% {
-            box-shadow: 0 0 60px rgba(156, 39, 176, 0.8),
-                        0 15px 80px rgba(138, 43, 226, 0.5);
-        }
-    }
-    
-    /* Featured Badge */
-    .featured-badge {
-        text-align: center;
-        color: #6A1B9A;
-        font-size: 1.1rem;
-        font-weight: 700;
-        margin-bottom: 15px;
-        font-family: 'Poppins', sans-serif;
-        animation: badge-float 2s ease-in-out infinite;
-    }
-    
-    @keyframes badge-float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-5px); }
-    }
-    
     .gallery-caption {
         text-align: center;
         color: #6A1B9A;
@@ -372,6 +332,39 @@ def inject_custom_css():
         to { opacity: 1; transform: translateY(0); }
     }
     
+    /* BACK TO TOP BUTTON - ALWAYS VISIBLE */
+    .floating-back-to-top {
+        position: fixed !important;
+        bottom: 30px !important;
+        right: 30px !important;
+        width: 56px !important;
+        height: 56px !important;
+        background: linear-gradient(135deg, #BA68C8 0%, #9C27B0 100%) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 50% !important;
+        font-size: 28px !important;
+        line-height: 56px !important;
+        text-align: center !important;
+        cursor: pointer !important;
+        box-shadow: 0 6px 20px rgba(156, 39, 176, 0.5) !important;
+        transition: all 0.3s ease !important;
+        z-index: 999999 !important;
+        display: block !important;
+        text-decoration: none !important;
+        font-weight: bold !important;
+    }
+    
+    .floating-back-to-top:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: 0 10px 30px rgba(156, 39, 176, 0.7) !important;
+        background: linear-gradient(135deg, #AB47BC 0%, #8E24AA 100%) !important;
+    }
+    
+    .floating-back-to-top:active {
+        transform: translateY(0) !important;
+    }
+    
     /* Responsive Design */
     @media (max-width: 600px) {
         .glass-card, .message-bubble {
@@ -383,6 +376,15 @@ def inject_custom_css():
         .hero-subtitle { font-size: 1rem; }
         .warranty-card { margin-bottom: 20px; }
         .stButton > button { padding: 12px 30px; font-size: 1rem; }
+        
+        .floating-back-to-top {
+            bottom: 20px !important;
+            right: 20px !important;
+            width: 50px !important;
+            height: 50px !important;
+            font-size: 24px !important;
+            line-height: 50px !important;
+        }
     }
     </style>
     """, unsafe_allow_html=True)
@@ -395,7 +397,6 @@ if 'page' not in st.session_state:
 
 if 'claimed_warranties' not in st.session_state:
     st.session_state.claimed_warranties = []
-
 
 # ========================================
 # MEDIA LOADING FUNCTION (WITH CACHING)
@@ -420,7 +421,7 @@ def load_media_config():
 # STATE 1: THE INCOMING MESSAGE (INTRO)
 # ========================================
 def show_intro_page():
-    # --- CSS HACK UTK TENGAH LAYAR (Hanya aktif di page ini) ---
+    # CSS HACK UTK TENGAH LAYAR
     st.markdown("""
     <style>
     div[data-testid="stAppViewContainer"] > .main > .block-container {
@@ -428,14 +429,13 @@ def show_intro_page():
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 100vh; /* Paksa tinggi kontainer = tinggi layar */
+        height: 100vh;
         padding-top: 0rem;
         padding-bottom: 0rem;
         max-width: 100%;
     }
     </style>
     """, unsafe_allow_html=True)
-    # -----------------------------------------------------------
 
     # Message Bubble Container
     st.markdown("""
@@ -453,7 +453,6 @@ def show_intro_page():
     """, unsafe_allow_html=True)
     
     # Center button Logic
-    # Kita pakai columns biar button ga terlalu lebar
     col1, col2, col3 = st.columns([1, 2, 1])
     if 'loading_open_message' not in st.session_state:
         st.session_state.loading_open_message = False
@@ -475,34 +474,42 @@ def show_intro_page():
 # STATE 2: THE CELEBRATION & WARRANTY
 # ========================================
 def show_main_page():
-    # Background music autoplay dengan tombol floating play/pause (tanpa JS, pakai Streamlit)
-    import streamlit as st
+    # Background music setup
     if 'music_playing' not in st.session_state:
         st.session_state.music_playing = True
 
+    # Audio player (autoplay)
+    try:
+        audio_file = open('music.mp3', 'rb')
+        import base64
+        audio_base64 = base64.b64encode(audio_file.read()).decode()
+        audio_html = f'''
+        <audio id="hidden-audio" src="data:audio/mp3;base64,{audio_base64}" {'autoplay' if st.session_state.music_playing else ''} loop style="display:none;"></audio>
+        <script>
+        var audio = document.getElementById('hidden-audio');
+        if (audio) {{
+            {'audio.play();' if st.session_state.music_playing else 'audio.pause();'}
+        }}
+        </script>
+        '''
+        st.markdown(audio_html, unsafe_allow_html=True)
+    except:
+        pass  # Skip if music file not found
 
-    # Audio player (autoplay setelah interaksi user, disembunyikan dari tampilan)
-    audio_file = open('music.mp3', 'rb')
-    audio_html = f'''
-    <audio id="hidden-audio" src="data:audio/mp3;base64,{{}}" {'autoplay' if st.session_state.music_playing else ''} loop style="display:none;"></audio>
-    <script>
-    var audio = document.getElementById('hidden-audio');
-    if (audio) {{
-        {'audio.play();' if st.session_state.music_playing else 'audio.pause();'}
-    }}
-    </script>
-    '''.replace('{', '{{').replace('}', '}}').replace('{{}}', '{}')
-    import base64
-    audio_base64 = base64.b64encode(audio_file.read()).decode()
-    st.markdown(audio_html.format(audio_base64), unsafe_allow_html=True)
-    # Reset layout CSS untuk main page (biar bisa scroll normal)
+    # Reset layout CSS untuk main page
     st.markdown("""
     <style>
     div[data-testid="stAppViewContainer"] > .main > .block-container {
-        display: block; /* Kembalikan ke normal flow */
+        display: block;
         padding-top: 5rem;
     }
     </style>
+    """, unsafe_allow_html=True)
+
+    # BACK TO TOP BUTTON - INJECT DI AWAL
+    st.markdown("""
+    <a href="#top" class="floating-back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">↑</a>
+    <div id="top"></div>
     """, unsafe_allow_html=True)
 
     # Trigger balloons on first load
@@ -599,13 +606,29 @@ def show_main_page():
 
     # Footer Message langsung tampil di atas galeri
     st.markdown("""
-    <div style="text-align: center; color: #8E24AA; font-size: 1.1rem; font-family: Quicksand; padding-bottom: 30px;">
-        <em>"Meskipun sudah bukan pasangan, kamu tetap seseorang yang special.<br>
+    <div style="
+        text-align: center; 
+        color: #6A1B9A; 
+        font-size: 1.1rem; 
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 500;
+        line-height: 1.8;
+        padding: 30px 25px;
+        margin-bottom: 30px;
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 8px 32px rgba(138, 43, 226, 0.15);
+        border: 1px solid rgba(186, 104, 200, 0.3);
+    ">
+        <em style="color: #8E24AA;">"Meskipun sudah bukan pasangan, kamu tetap seseorang yang special.<br>
         Selamat ulang tahun, Mon Ciel. Semoga tahun ini penuh kebahagiaan!"</em><br>
-        <strong style="color: #6A1B9A;">— Mon chéri 💜</strong>
+        <strong style="color: #6A1B9A; font-size: 1.15rem; margin-top: 10px; display: inline-block;">— Mon chéri 💜</strong>
     </div>
     """, unsafe_allow_html=True)
-
 
     # Load media dari config (JSON)
     media_list = load_media_config()
@@ -617,77 +640,115 @@ def show_main_page():
 
     if not media_list:
         st.warning("Belum ada media. Update media_config.json dengan foto/video URLs.")
-        return
+    else:
+        # Ambil hanya gambar (skip video untuk layout ini)
+        images = [m['url'] for m in media_list if m['type'] == 'image']
+        
+        # Foto yang ingin di-highlight
+        highlight_url = None
+        for img in images:
+            if 'Images/IMG_20250621_181933.jpg' in img or 'IMG_20250621_181933.jpg' in img:
+                highlight_url = img
+                break
+        
+        # Jika tidak ditemukan, fallback ke index 5 atau placeholder
+        if not highlight_url:
+            highlight_url = images[5] if len(images) > 5 else 'https://via.placeholder.com/350x500?text=Special'
+        
+        # Buat list images_lain tanpa yang di-highlight
+        images_lain = [img for img in images if img != highlight_url]
+        
+        # Pastikan jumlah images_lain minimal 11
+        while len(images_lain) < 11:
+            images_lain.append('https://via.placeholder.com/400x500?text=Photo')
 
-    # Ambil hanya gambar (skip video untuk layout ini)
-    images = [m['url'] for m in media_list if m['type'] == 'image']
-    n = len(images)
-    # Foto yang ingin di-highlight
-    highlight_url = None
-    for img in images:
-        if 'Images/IMG_20250621_181933.jpg' in img or 'IMG_20250621_181933.jpg' in img:
-            highlight_url = img
-            break
-    # Jika tidak ditemukan, fallback ke index 5 atau placeholder
-    if not highlight_url:
-        highlight_url = images[5] if len(images) > 5 else 'https://via.placeholder.com/350x500?text=Special'
-    # Buat list images_lain tanpa yang di-highlight
-    images_lain = [img for img in images if img != highlight_url]
-    # Pastikan jumlah images_lain minimal 11
-    while len(images_lain) < 11:
-        images_lain.append('https://via.placeholder.com/400x500?text=Photo')
+        # Tukar posisi foto 1 dan foto 2 (index 0 dan 1)
+        if len(images_lain) >= 2:
+            images_lain[0], images_lain[1] = images_lain[1], images_lain[0]
 
-    # Tukar posisi foto 1 dan foto 2 (index 0 dan 1)
-    if len(images_lain) >= 2:
-        images_lain[0], images_lain[1] = images_lain[1], images_lain[0]
+        # Layout: 12 foto, 1 utama di tengah, 11 mengelilingi
+        # Baris 1: 3 foto, foto ke-2 (index 1) dibesarkan
+        cols = st.columns([1,1,1])
+        for i in range(3):
+            with cols[i]:
+                if i == 1:
+                    st.image(images_lain[i], width=340)
+                else:
+                    st.image(images_lain[i], width=340)
 
+        # Baris 2: 2 foto kecil, 1 besar di tengah (highlight), 2 kecil
+        cols = st.columns([1,1,2,1,1])
+        with cols[0]:
+            st.image(images_lain[3], width=340)
+        with cols[1]:
+            st.image(images_lain[4], width=340)
+        with cols[2]:
+            st.markdown('<div class="special-badge-box">✨ Special</div>', unsafe_allow_html=True)
+            st.image(highlight_url, width=400)
+        with cols[3]:
+            st.image(images_lain[5], width=340)
+        with cols[4]:
+            st.image(images_lain[6], width=340)
 
-
-    # Layout: 12 foto, 1 utama di tengah, 11 mengelilingi
-    # Baris 1: 3 foto, foto ke-2 (index 1) dibesarkan
-    cols = st.columns([1,1,1])
-    for i in range(3):
-        with cols[i]:
-            if i == 1:
+        # Baris 3: 3 foto kecil
+        cols = st.columns([1,1,1])
+        for i in range(7,10):
+            with cols[i-7]:
                 st.image(images_lain[i], width=340)
-            else:
-                st.image(images_lain[i], width=200)
 
-    # Baris 2: 2 foto kecil, 1 besar di tengah (highlight), 2 kecil
-    cols = st.columns([1,1,2,1,1])
-    with cols[0]:
-        st.image(images_lain[3], width=200)
-    with cols[1]:
-        st.image(images_lain[4], width=200)
-    with cols[2]:
-        st.markdown('<div class="special-badge-box">✨ Special</div>', unsafe_allow_html=True)
-        st.image(highlight_url, width=350)
-    with cols[3]:
-        st.image(images_lain[5], width=200)
-    with cols[4]:
-        st.image(images_lain[6], width=200)
+        # Baris 4: 1 foto kecil di tengah bawah
+        cols = st.columns([3,1,3])
+        with cols[1]:
+            st.image(images_lain[10], width=340)
 
-    # Baris 3: 3 foto kecil
-    cols = st.columns([1,1,1])
-    for i in range(7,10):
-        with cols[i-7]:
-            st.image(images_lain[i], width=200)
-
-    # Baris 4: 1 foto kecil di tengah bawah
-    cols = st.columns([3,1,3])
-    with cols[1]:
-        st.image(images_lain[10], width=200)
-
-    # Jika ada video, tampilkan di bawah galeri
-    videos = [m['url'] for m in media_list if m['type'] == 'video']
-    if videos:
-        st.markdown('<br><b>Video Kenangan</b>', unsafe_allow_html=True)
-        for v in videos:
-            st.video(v)
-
-    # ...kode slideshow sudah dihapus, tidak ada logic auto_play atau pause...
-
-    # ...footer sudah dipindahkan ke atas galeri...
+        # Jika ada video, tampilkan di bawah galeri
+        videos = [m['url'] for m in media_list if m['type'] == 'video']
+        if videos:
+            st.markdown('<br><b>Video Kenangan</b>', unsafe_allow_html=True)
+            for v in videos:
+                st.video(v)
+    
+    # ========================================
+    # FINAL MESSAGE WITH LOVE
+    # ========================================
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown("""
+    <div style="
+        text-align: center; 
+        color: #6A1B9A; 
+        font-size: 1.15rem; 
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 500;
+        line-height: 1.8;
+        padding: 40px 20px;
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        max-width: 600px;
+        margin: 0 auto 60px auto;
+        box-shadow: 0 8px 32px rgba(138, 43, 226, 0.15);
+        border: 1px solid rgba(186, 104, 200, 0.3);
+    ">
+        <div style="font-style: italic; margin-bottom: 20px;">
+            "Made with the deepest love.<br>
+            Loved you yesterday, loving you still,<br>
+            always have, always will.<br>
+            My door—and my heart—remain open.<br>
+            Forever and ever."
+        </div>
+        <div style="font-size: 2.5rem; margin-top: 15px; animation: heartbeat 1.5s ease-in-out infinite;">
+            💜
+        </div>
+    </div>
+    
+    <style>
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        25% { transform: scale(1.1); }
+        50% { transform: scale(1); }
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 # ========================================
 # MAIN APPLICATION
