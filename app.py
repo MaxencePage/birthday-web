@@ -667,16 +667,13 @@ def show_main_page():
             images_lain[0], images_lain[1] = images_lain[1], images_lain[0]
 
         # Layout: 12 foto, 1 utama di tengah, 11 mengelilingi
-        # Baris 1: 3 foto, foto ke-2 (index 1) dibesarkan
+        # Baris 1: 3 foto, semua 340px
         cols = st.columns([1,1,1])
         for i in range(3):
             with cols[i]:
-                if i == 1:
-                    st.image(images_lain[i], width=340)
-                else:
-                    st.image(images_lain[i], width=340)
+                st.image(images_lain[i], width=340)
 
-        # Baris 2: 2 foto kecil, 1 besar di tengah (highlight), 2 kecil
+        # Baris 2: 2 foto 340px, 1 besar di tengah (highlight 400px), 2 foto 340px
         cols = st.columns([1,1,2,1,1])
         with cols[0]:
             st.image(images_lain[3], width=340)
@@ -690,13 +687,13 @@ def show_main_page():
         with cols[4]:
             st.image(images_lain[6], width=340)
 
-        # Baris 3: 3 foto kecil
+        # Baris 3: 3 foto 340px
         cols = st.columns([1,1,1])
         for i in range(7,10):
             with cols[i-7]:
                 st.image(images_lain[i], width=340)
 
-        # Baris 4: 1 foto kecil di tengah bawah
+        # Baris 4: 1 foto 340px di tengah bawah
         cols = st.columns([3,1,3])
         with cols[1]:
             st.image(images_lain[10], width=340)
