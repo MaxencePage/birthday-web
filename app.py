@@ -403,6 +403,120 @@ def inject_custom_css():
             line-height: 50px !important;
         }
     }
+                
+    /* CUSTOM EXPANDER STYLING */
+    /* Kotak luar expander */
+    [data-testid="stExpander"] {
+        background: rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(10px);
+        border: 1.5px solid #BA68C8; /* Warna border ungu */
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(138, 43, 226, 0.1);
+        overflow: hidden; /* Supaya radius tidak bocor */
+    }
+    
+    /* Header (Bagian yang diklik) */
+    .streamlit-expanderHeader {
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 600;
+        color: #6A1B9A; /* Ungu gelap */
+        background-color: rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(186, 104, 200, 0.2);
+    }
+    
+    /* Isi Text di dalam */
+    [data-testid="stExpanderDetails"] {
+        color: #4A148C;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    
+    /* Icon panah kecil */
+    .streamlit-expanderHeader svg {
+        fill: #6A1B9A !important; /* Warna panah */
+    }
+                
+    /* ========================================= */
+    /* GAYA KHUSUS EXPANDER (VERSI FINAL ANTI-HITAM) */
+    /* ========================================= */
+    
+    /* 1. Styling Judul (Header) - MENANGANI SEMUA KONDISI KLIK */
+    .streamlit-expanderHeader, 
+    div[data-testid="stExpander"] summary,
+    div[data-testid="stExpander"] summary:hover,
+    div[data-testid="stExpander"] summary:focus,
+    div[data-testid="stExpander"] summary:active,
+    div[data-testid="stExpander"] details[open] summary {
+        color: #4A148C !important;  /* Tetap Ungu Gelap, JANGAN berubah hitam */
+        font-family: 'Quicksand', sans-serif !important;
+        font-weight: 700 !important;
+        font-size: 1.1rem !important;
+        padding-left: 10px !important;
+        background-color: transparent !important; /* Hilangkan highlight abu-abu saat klik */
+    }
+
+    /* 2. HILANGKAN Panah Bawaan (Biar tidak error jadi teks) */
+    div[data-testid="stExpander"] summary svg,
+    .streamlit-expanderHeader svg {
+        display: none !important;
+    }
+
+    /* 3. Styling Kotak Luar */
+    div[data-testid="stExpander"] {
+        background-color: rgba(255, 255, 255, 0.45) !important;
+        border: 2px solid #BA68C8 !important;
+        border-radius: 15px !important;
+        box-shadow: 0 4px 12px rgba(138, 43, 226, 0.15) !important;
+    }
+
+    /* 4. Styling Isi Teks (Konten di dalam) */
+    div[data-testid="stExpanderDetails"] {
+        color: #333 !important; /* Warna teks isi (Hitam/Abu) */
+        border-top: 1px solid rgba(186, 104, 200, 0.3);
+        padding-top: 10px !important;
+    }
+                
+    /* ========================================= */
+    /* GAYA KHUSUS TOMBOL LINK (External Link)   */
+    /* ========================================= */
+    .link-card-container {
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(10px);
+        border: 2px solid #BA68C8;
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        max-width: 500px;
+        margin: 20px auto;
+        box-shadow: 0 8px 32px rgba(138, 43, 226, 0.15);
+        transition: transform 0.3s ease;
+    }
+
+    /* Tombol Link Custom */
+    .custom-link-btn {
+        background: linear-gradient(135deg, #BA68C8 0%, #9C27B0 100%);
+        color: white !important; /* Paksa putih */
+        text-decoration: none !important; /* Hilangkan garis bawah */
+        border-radius: 50px;
+        padding: 15px 40px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        font-family: 'Quicksand', sans-serif;
+        box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+        display: inline-block;
+        margin-top: 15px;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .custom-link-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(156, 39, 176, 0.6);
+        background: linear-gradient(135deg, #AB47BC 0%, #8E24AA 100%);
+        border: 2px solid white;
+        color: white !important;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -459,11 +573,11 @@ def show_intro_page():
     <div class="message-bubble">
         <div class="message-header">
             📱 Pesan Baru<br>
-            <strong>Dari:</strong> Mon chéri<br>
+            <strong>Dari:</strong> Mon Chéri<br>
             <strong>Untuk:</strong> Mon Ciel ♡
         </div>
         <div class="message-text">
-            ✨ Ada kiriman paket garansi untuk tahun 2026...<br>
+            ✨ Ada kiriman paket garansi untuk tahun 2026<br>
             Khusus untuk seseorang yang special 💜
         </div>
     </div>
@@ -537,7 +651,7 @@ def show_main_page():
     # Hero Section
     st.markdown("""
     <div class="hero-title">
-        Happy Birthday, Febe Grace. 🎂
+        Happy Birthday, <br>Febe Grace. 🎂
     </div>
     <div class="hero-subtitle">
         Semoga 15 Februari ini seindah warna Lilac kesukaanmu.
@@ -547,7 +661,7 @@ def show_main_page():
     # Warranty Status Badge
     st.markdown("""
     <div class="warranty-badge">
-        ✅ Status: Active Lifetime • Authorized by Mon chéri
+        ✅ Status: Active Lifetime • Authorized by Mon Chéri
     </div>
     """, unsafe_allow_html=True)
     
@@ -635,7 +749,7 @@ def show_main_page():
         background: rgba(255, 255, 255, 0.3);
         backdrop-filter: blur(10px);
         border-radius: 20px;
-        max-width: 600px;
+        max-width: 700px;
         margin-left: auto;
         margin-right: auto;
         box-shadow: 0 8px 32px rgba(138, 43, 226, 0.15);
@@ -643,7 +757,7 @@ def show_main_page():
     ">
         <em style="color: #8E24AA;">"Meskipun sudah bukan pasangan, kamu tetap seseorang yang special.<br>
         Selamat ulang tahun, Mon Ciel. Semoga tahun ini penuh kebahagiaan!"</em><br>
-        <strong style="color: #6A1B9A; font-size: 1.15rem; margin-top: 10px; display: inline-block;">— Mon chéri 💜</strong>
+        <strong style="color: #6A1B9A; font-size: 1.15rem; margin-top: 10px; display: inline-block;">— Mon Chéri 💜</strong>
     </div>
     """, unsafe_allow_html=True)
 
@@ -721,7 +835,75 @@ def show_main_page():
             st.markdown('<br><b>Video Kenangan</b>', unsafe_allow_html=True)
             for v in videos:
                 st.video(v)
+   
+    st.markdown("<br><br>", unsafe_allow_html=True)
     
+    col_x1, col_x2, col_x3 = st.columns([1, 1, 1])
+    
+    with col_x2:
+        with st.expander("💌 P.S. Klik untuk membuka pesan"):
+            st.markdown("""
+            <div style="text-align: justify; color: #4A148C; padding: 10px; max-width: 700px;">
+            <b>Dear Febe,</b>
+            <br><br>
+            <b>I love you.</b><br>
+            I love you more than anything.<br>
+            I love you more than myself.<br>
+            I will always love you.<br>
+            I will love you till the end of my time.<br>
+            No words can express how much I love you.<br>
+            I will always be here for you no matter what.<br>
+            I will stay.
+            <br><br>
+            <b>I miss you.</b><br>
+            I miss you more than I can put into words.<br>
+            I miss our talks, your stories,<br>
+            and everything in between.<br>
+            No matter how much time passes,<br>
+            a part of me will always miss you.<br>
+            I'm still here, and I'll always be.
+            <br><br>
+            <b>Always, Mon Chéri.</b>
+            </div>
+            """, unsafe_allow_html=True)
+
+    # 1. Tentukan Link dan Teks
+    target_url = "https://gumpalan-story.streamlit.app/" # Ganti link ini
+    button_text = "📖 Baca Ceritamu"
+    card_title = "🌙 The Dream You Once Shared"
+    card_desc = "Apakah kamu masih ingat, <br>" \
+                "mimpi yang pernah kamu ceritakan itu?<br>" \
+                "Aku mencoba menangkap kepingan-kepingan ceritamu dan menyusunnya kembali menjadi sebuah kisah abadi. <br>" \
+                "Selamat membaca imajinasiku tentang mimpimu. <br>  " \
+                "Anggap saja ini oleh-oleh dari alam bawah sadarmu."
+
+    # 2. Render HTML Card
+    st.markdown(f"""
+    <div class="link-card-container">
+        <div style="font-size: 3rem; margin-bottom: 10px;">🎁</div>
+        <div style="
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            color: #6A1B9A; 
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 10px;
+        ">
+            {card_title}
+        </div>
+        <div style="
+            font-size: 1rem; 
+            color: #4A148C; 
+            margin-bottom: 25px; 
+            line-height: 1.5;
+        ">
+            {card_desc}
+        </div>
+        <a href="{target_url}" target="_blank" class="custom-link-btn">
+            {button_text} ➜
+        </a>
+    </div>
+    """, unsafe_allow_html=True)
+                    
     # ========================================
     # FINAL MESSAGE WITH LOVE
     # ========================================
@@ -738,7 +920,7 @@ def show_main_page():
         background: rgba(255, 255, 255, 0.3);
         backdrop-filter: blur(10px);
         border-radius: 20px;
-        max-width: 600px;
+        max-width: 700px;
         margin: 0 auto 60px auto;
         box-shadow: 0 8px 32px rgba(138, 43, 226, 0.15);
         border: 1px solid rgba(186, 104, 200, 0.3);
@@ -747,7 +929,7 @@ def show_main_page():
             "Made with the deepest love.<br>
             Loved you yesterday, loving you still,<br>
             always have, always will.<br>
-            My door—and my heart—remain open.<br>
+            My door and my heart remain open.<br>
             Forever and ever."
         </div>
         <div style="font-size: 2.5rem; margin-top: 15px; animation: heartbeat 1.5s ease-in-out infinite;">
